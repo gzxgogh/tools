@@ -145,6 +145,11 @@ func Math2float64(param interface{}) float64 {
 	return fre
 }
 
+func Math2int(param interface{}) int {
+	fre := Math2float64(param)
+	return int(fre)
+}
+
 // 字符串递增,长度一致
 func StrIncrease(strNo string) string {
 	intNo := Math2float64(strNo)
