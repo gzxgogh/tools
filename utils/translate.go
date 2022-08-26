@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -23,7 +24,13 @@ func Translate(oriLang, aimLang, content string) (string, error) {
 	str = strings.ReplaceAll(str, "[", "")
 	str = strings.ReplaceAll(str, "]", "")
 	str = strings.ReplaceAll(str, "null,", "")
+	str = strings.ReplaceAll(str, "\\u200b", "")
 	str = strings.Trim(str, `"`)
 	arr := strings.Split(str, `","`)
-	return arr[0], nil
+	str = arr[0]
+	if strings.Contains(arr[0], "href=//www.google.com") {
+		return "", errors.New("无效的语言类型")
+	}
+
+	return str, nil
 }
